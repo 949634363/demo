@@ -1,0 +1,32 @@
+server:
+  port: 9092
+  name: demo
+spring:
+  profiles:
+    active: dev
+nacos:
+  config:
+    bootstrap:
+      enable: true
+    auto-refresh: true
+    data-ids: dubbo, db_car_only, jpa, kafka, log
+    type: yaml
+    group: DEFAULT_GROUP
+    ext-config:
+      - data-ids: conf
+        type: properties
+dubbo:
+  protocol:
+    port: 20890
+  application:
+    id: TestConsumer
+    name: TestConsumer
+logging:
+  config: classpath:conf/logback.xml
+  package: com.hx.demo
+feign:
+  httpclient:
+    enabled: false
+    connection-timeout: 3000
+  okhttp:
+    enabled: true

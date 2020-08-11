@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <springProperty scope="context" name="serverName" source="server.name" defaultValue="default"/>
+    <springProperty scope="context" name="package" source="logging.package" defaultValue="com.hx"/>
+
+    <appender name="serviceInfo" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 正在记录的日志文件的路径及文件名 -->
+        <file>/app/soft/app/log/${serverName}/service/service-info.log</file>
+        <!-- 日志输出格式：%d表示日期时间，%thread表示线程名，%-5level：级别从左显示5个字符宽度
+             %logger{50} 表示logger名字最长50个字符，否则按照句点分割。 %msg：日志消息，%n是换行符 -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 每天日志归档路径以及格式，可以不使用log后缀，%i：当文件大小超过maxFileSize时，按照i进行文件滚动，i从0开始滚动 -->
+            <FileNamePattern>/app/soft/app/log/${serverName}/service/service-info-%d{yyyy-MM-dd}.log</FileNamePattern>
+        </rollingPolicy>
+        <!-- onMath(用于配置符合过滤条件的操作) onMismatch(用于配置不符合过滤条件的操作)
+             DENY：日志将立即被抛弃不再经过其他过滤器
+             NEUTRAL：有序列表里的下个过滤器过接着处理日志
+             ACCEPT：日志会被立即处理，不再经过剩余过滤器-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="serviceError" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>/app/soft/app/log/${serverName}/error/service-error.log</file>
+        <!-- 日志输出格式：%d表示日期时间，%thread表示线程名，%-5level：级别从左显示5个字符宽度
+             %logger{50} 表示logger名字最长50个字符，否则按照句点分割。 %msg：日志消息，%n是换行符 -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 每天日志归档路径以及格式，可以不使用log后缀，%i：当文件大小超过maxFileSize时，按照i进行文件滚动，i从0开始滚动 -->
+            <FileNamePattern>/app/soft/app/log/${serverName}/error/service-error-%d{yyyy-MM-dd}.log</FileNamePattern>
+        </rollingPolicy>
+        <!-- onMath(用于配置符合过滤条件的操作) onMismatch(用于配置不符合过滤条件的操作)
+             DENY：日志将立即被抛弃不再经过其他过滤器
+             NEUTRAL：有序列表里的下个过滤器过接着处理日志
+             ACCEPT：日志会被立即处理，不再经过剩余过滤器-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="accessAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>/app/soft/app/log/${serverName}/access/access.log</file>
+        <!-- 日志记录器的滚动策略，按日期，按大小记录-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/app/soft/app/log/${serverName}/access/access-%d{yyyy-MM-dd}.log</FileNamePattern>
+        </rollingPolicy>
+        <!-- 追加方式记录日志 -->
+        <append>true</append>
+        <!-- 日志文件的格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+    </appender>
+
+     <!-- 控制台日志 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+        <!--此日志appender是为开发使用，只配置最底级别，控制台输出的日志级别是大于或等于此级别的日志信息-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>all</level>
+        </filter>
+    </appender>
+
+    <logger name="${package}">
+        <appender-ref ref="serviceInfo" />
+        <appender-ref ref="serviceError" />
+    </logger>
+
+    <!--使用LoggerFactory.getLogger("accessLogger") 使用这个logger   additivity="false" 表示log只打印到本log的appender中-->
+    <logger name="accessLogger" additivity="false">
+        <!--指定一个Appender-->
+        <appender-ref ref="accessAppender" />
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="serviceError" />
+    </root>
+
+</configuration> 

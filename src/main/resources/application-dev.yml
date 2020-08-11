@@ -1,0 +1,4 @@
+nacos:
+  config:
+    server-addr: 10.90.60.221:8848
+    namespace: 06434db1-907a-4b7e-b90a-5f640c511ef7 #dev

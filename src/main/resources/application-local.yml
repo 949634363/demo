@@ -1,0 +1,8 @@
+#nacos:
+#  config:
+#    server-addr: 10.90.60.221:8848
+#    data-ids: dubbo, public
+#    group: dev
+#dubbo:
+#  registry:
+#    address: 127.0.0.1:2181

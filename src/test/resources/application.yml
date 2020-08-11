@@ -1,0 +1,40 @@
+server:
+  port: 8081
+hx:
+  email:
+    SENDER_EMAIL_ADDRESS: systemrequire@hx2car.cn   # 发件人邮箱地址
+    SENDER_EMAIL_USERNAME: systemrequire@hx2car.cn  # 发件人用户名
+    SENDER_AUTH_CODE: Hx@car123456                  # 发件人邮箱授权码(密码)
+    EMAIL_HOST: smtp.exmail.qq.com                  # 邮箱服务器地址
+  log:
+    service:
+      path: /app/soft/app/log/pubnet-service/service/
+      fileName: service.log
+      pattern: service-%d{yyyy-MM-dd}.log
+    access:
+      path: /app/soft/app/log/pubnet-service/access/
+      fileName: access.log
+      pattern: access-%d{yyyy-MM-dd}.log
+#nacos:
+#  config:
+#    bootstrap:
+#      enable: true
+#    server-addr: 127.0.0.1:8848
+#    auto-refresh: true
+#    data-ids: public_dubbo
+#    group: test
+#    type: yaml
+dubbo:
+  application:
+    id: EmailService
+    name: EmailService
+  registry:
+    protocol: zookeeper
+    address: 10.90.60.243:2181,10.90.60.209:2181,10.90.60.219:2181
+  protocol:
+    id: dubbo
+    name: dubbo
+    port: 20882
+    status: server
+logging:
+  config: classpath:conf/logback.xml
