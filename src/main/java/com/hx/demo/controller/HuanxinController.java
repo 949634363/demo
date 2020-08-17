@@ -55,13 +55,4 @@ public class HuanxinController {
         ResultHx resultHxTxt = huanxinService.sendMessage(huanxinMsgContentTxtVo);
         return resultHxTxt;
     }
-
-    public static void main(String[] args) {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("title", "1");
-        map.put("picUrl", "2");
-        map.put("link", "3");
-        System.out.println(map.toString());
-        System.out.println(JSONObject.toJSONString(map));
-    }
 }

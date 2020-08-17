@@ -17,9 +17,11 @@ import java.util.Map;
  */
 public class LogAnalysis {
 
-    private final static String PATH = "C:\\Users\\user\\Desktop\\log\\";
+    private final static String PATH = "C:\\Users\\user\\Desktop\\";
 
-    private final static String FILE_NAME = "service-2020-07-22.log";
+    private final static String FILE_NAME = "123.log";
+    private final static String FILE_NAME_NEW = "huanxinid.log";
+    private final static String PHONE = "phone.txt";
 
     public static void main(String[] args) {
         // 获取文件行数
@@ -28,29 +30,27 @@ public class LogAnalysis {
             long line = Files.lines(Paths.get(PATH + FILE_NAME)).count();
             LineNumberReader lnr = new LineNumberReader(new FileReader(logFile));
             String lineStr;
-            String from;
             Map<String, Integer> temp = new HashMap<>();
-            int error = 0;
+            Map<String, Integer> error = new HashMap<>();
             while ((lineStr = lnr.readLine()) != null) {
-                // 获取from字符串
-                try {
-                    from = lineStr.substring(lineStr.indexOf("\"from\":\"") + 8, lineStr.indexOf("\",\"target\""));
-                    from = from.startsWith("hx") ? "hx" : from;
-                    Integer count = temp.get(from);
-                    count = count == null ? 1 : count + 1;
-                    temp.put(from, count);
-                } catch (StringIndexOutOfBoundsException e) {
-                    error++;
+                if (!lineStr.contains("TestController") || !lineStr.contains("hx")) {
+                    continue;
+                }
+//                System.out.println(lineStr);
+                lineStr = lineStr.substring(lineStr.indexOf("hx"));
+                Integer count = temp.get(lineStr);
+                temp.put(lineStr, count == null ? 1 : ++count);
+                if (count != null) {
+                    error.put(lineStr, count);
                 }
             }
+            System.out.println(temp.get("hx1421157968562686647"));
             System.out.println("总行数：" + line);
-            int sum = 0;
-            for (String key : temp.keySet()) {
-                System.out.println(key + ":" + temp.get(key));
-                sum += temp.get(key);
+            System.out.println("发送总人数：" + temp.size());
+            // 重复发送人数
+            for (String key : error.keySet()) {
+                System.out.println(key + " -------------- " + error.get(key));
             }
-            System.out.println(sum);
-            System.out.println("错误行数：" + error);
         } catch (IOException e) {
             e.printStackTrace();
         }
