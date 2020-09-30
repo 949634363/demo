@@ -1,4 +1,4 @@
-package com.hx.demo.vo;
+package com.hx.demo.bean.vo;
 
 import com.alibaba.dubbo.common.utils.StringUtils;
 import com.hxcore.utils.DateUtil;

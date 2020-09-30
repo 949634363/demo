@@ -1,7 +1,7 @@
 package com.hx.demo.feign;
 
-import com.hx.demo.vo.HuanXinBean;
-import com.hx.demo.vo.HuanxinTokenVo;
+import com.hx.demo.bean.vo.HuanXinBean;
+import com.hx.demo.bean.vo.HuanxinTokenVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

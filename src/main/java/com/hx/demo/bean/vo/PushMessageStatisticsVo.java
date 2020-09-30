@@ -1,4 +1,4 @@
-package com.hx.demo.vo;
+package com.hx.demo.bean.vo;
 
 import com.hx.demo.annotation.ExcelCell;
 
