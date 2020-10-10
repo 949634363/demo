@@ -3,6 +3,7 @@ import com.hx.pubnet.bean.vo.huanxin.msg.HuanxinMsgContentTxtVo;
 import com.hx.pubnet.bean.vo.huanxin.msg.HuanxinMsgFromType;
 import com.hx.pubnet.bean.vo.huanxin.msg.HuanxinMsgVo;
 import com.hx.pubnet.bean.vo.huanxin.msg.ext.HuanxinMsgExtGonggaoVo;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,8 +35,20 @@ public class LogAnalysis {
     private final static String[] FILE_NAMES = {"123.log"};
 
     public static void main(String[] args) throws IOException {
+//        String token = "b92cfc09b7ff43e884ee8594c515719a";
+//        String[] parameters = { "vin=LFV2A2150E3160566", "user=18823730909" , "id="};
+//        Arrays.sort(parameters);
+//        StringBuffer para = new StringBuffer();
+//        for (int i = 0; i < parameters.length; i++) {
+//            if (i > 0) {
+//                para.append("&");
+//            }
+//            para.append(parameters[i]);
+//        }
+//        String sign_temp = para.toString();
+//        String sign_md5 = DigestUtils.md5Hex(sign_temp + token);
+//        System.out.println(sign_md5);
         write();
-        read();
     }
 
     public static void write() throws IOException {
@@ -50,8 +63,8 @@ public class LogAnalysis {
         if (!file.exists()) {
             file.createNewFile();
         }
-        FileOutputStream fileOutputStream = new FileOutputStream(file);
-        for (int i = 0; i < 1200000; i++) {
+        FileOutputStream fileOutputStream = new FileOutputStream(file, true);
+        for (int i = 0; i < 10; i++) {
             fileOutputStream.write((huanxinMsgVo.toSendString() + "\n").getBytes());
         }
         long end = System.currentTimeMillis();
