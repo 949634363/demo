@@ -1,7 +1,6 @@
 package com.hx.demo.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.alibaba.fastjson.JSONObject;
 import com.hx.pubnet.bean.vo.huanxin.msg.HuanxinMsgContentTxtVo;
 import com.hx.pubnet.bean.vo.huanxin.msg.HuanxinMsgFromType;
 import com.hx.pubnet.bean.vo.huanxin.msg.HuanxinMsgTargetType;
@@ -12,7 +11,6 @@ import com.hx.pubnet.service.huanxin.HuanxinService;
 import com.hxcore.result.ResultDataType;
 import com.hxcore.result.ResultHx;
 import edu.emory.mathcs.backport.java.util.Collections;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

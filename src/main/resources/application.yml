@@ -9,11 +9,12 @@ nacos:
     bootstrap:
       enable: true
     auto-refresh: true
-    data-ids: dubbo, db_car_only, jpa, kafka, log
+    data-ids: dubbo, feign
     type: yaml
     group: DEFAULT_GROUP
     ext-config:
-      - data-ids: conf
+      - namespace: public
+        data-ids: dubbo, db_car_only, jpa, kafka, log
         type: properties
 dubbo:
   protocol:
